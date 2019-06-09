@@ -42,7 +42,7 @@
                     <DataTemplate>
                         <StackPanel>
                             <TextBlock FontSize="14pt" FontWeight="Bold" Text="{Binding UserName}"/>
-                            <TextBlock FontSize="12pt" Text="{Binding Message}"/>
+                            <TextBlock FontSize="12pt" TextWrapping="WrapWholeWords" Text="{Binding Message}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
