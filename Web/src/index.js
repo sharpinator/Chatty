@@ -7,7 +7,7 @@ var tbMessage = document.querySelector("#tbMessage");
 var btnSend = document.querySelector("#btnSend");
 var username = new Date().getTime();
 var connection = new signalR.HubConnectionBuilder()
-    .withUrl("/hub")
+    .withUrl("/ChatHub")
     .build();
 connection.start().catch(function (err) { return document.write(err); });
 connection.on("messageReceived", function (username, message) {

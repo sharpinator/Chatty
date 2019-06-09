@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Unity.Windows;
@@ -57,8 +57,8 @@ namespace Sharpinator.Chatty.UWP
 
         protected override void ConfigureContainer()
         {
-            var hub = new HubConnection("http://localhost:63113/");
-            Container.RegisterInstance<HubConnection>(hub);
+            
+            Container.RegisterInstance<IHubConnectionBuilder>(new HubConnectionBuilder().WithUrl("http://localhost:63113/ChatHub"));
             Container.RegisterInstance<IDispatcher>(new CoreDispatcherProxy());
             base.ConfigureContainer();
         }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.SignalR.Client;
-using Microsoft.AspNet.SignalR.Client.Hubs;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 using Prism.Commands;
 using Prism.Windows.Mvvm;
 using System;
@@ -53,38 +52,32 @@ namespace Sharpinator.Chatty.ViewModels
             }
         }
         protected HubConnection Connection { get; private set; }
-        protected IHubProxy Proxy { get; private set; }
-        protected IDisposable MessageReceived { get; private set; }
         protected IDispatcher Dispatcher { get; private set; }
-        public MainPageViewModel(HubConnection connection, IDispatcher dispatcher)
+        public MainPageViewModel(IHubConnectionBuilder builder, IDispatcher dispatcher)
         {
             SendMessage = new DelegateCommand<string>(DoSendMessage);
             Connect = new DelegateCommand(DoConnect);
             Disconnect = new DelegateCommand(DoDisconnect);
-            Connection = connection;
+            Connection = builder.Build();
             Dispatcher = dispatcher;
         }
 
         private async void DoSendMessage(string message)
         {
-            await this.Proxy.Invoke("newMessage", UserName, message);
-            await this.Dispatcher.RunAsync(() => Messages.Add(new MessageWrapper() { UserName = userName, Message = message }));
+            await Connection.InvokeAsync("newMessage", UserName, message);
             Message = "";
         }
         private async void DoConnect()
         {
-            var proxy = Connection.CreateHubProxy("ChatHub");
-            MessageReceived = proxy.On<string, string>("messageReceived", AddMessage);
-            Proxy = proxy;
-            await Connection.Start();
+            Connection.On<string, string>("messageReceived", AddMessage);
+            await Connection.StartAsync();
             IsConnected = true;
             
         }
-        private void DoDisconnect()
+        private async void DoDisconnect()
         {
             IsConnected = false;
-            MessageReceived.Dispose();
-            Connection.Stop();
+            await Connection.StopAsync();
         }
         private async void AddMessage(string username, string message)
         {

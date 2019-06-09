@@ -28,7 +28,7 @@ namespace Web
             }
             app.UseSignalR(options =>
             {
-                options.MapHub<ChatHub>("/hub");
+                options.MapHub<ChatHub>("/ChatHub");
             });
             app.UseDefaultFiles();
             app.UseStaticFiles();

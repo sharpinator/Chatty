@@ -26,7 +26,7 @@
                 <ColumnDefinition Width="125"/>
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="25pt" FontWeight="Bold" Grid.Column="0">Name:</TextBlock>
-            <TextBox Grid.Column="1" Text="{Binding UserName}"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding UserName, Mode=TwoWay}"></TextBox>
             <Button Grid.Column="2" FontSize="25pt" FontWeight="Bold" Content="Connect" Command="{Binding Connect}"/>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
@@ -52,7 +52,7 @@
                 <ColumnDefinition Width="75"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock FontSize="25" FontWeight="Bold" Grid.Column="0">Message:</TextBlock>
-            <TextBox Text="{Binding Message}" Grid.Column="1"/>
+            <TextBox Text="{Binding Message, Mode=TwoWay}" Grid.Column="1"/>
             <Button Content="Send" FontSize="25" FontWeight="Bold" Command="{Binding SendMessage}" CommandParameter="{Binding Message}" Grid.Column="2"/>
         </Grid>
     </Grid>

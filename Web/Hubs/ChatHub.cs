@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace Web.Hubs
 {
+    
     public class ChatHub : Hub
     {
         public async Task NewMessage(string username, string message)
