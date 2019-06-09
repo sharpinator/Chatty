@@ -22,16 +22,16 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid ColumnSpacing="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="110"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="145"/>
             </Grid.ColumnDefinitions>
-            <TextBlock FontSize="25pt" FontWeight="Bold" Grid.Column="0">Name:</TextBlock>
-            <TextBox Grid.Column="1" Text="{Binding UserName, Mode=TwoWay}"></TextBox>
-            <Button Grid.Column="2" FontSize="25pt" FontWeight="Bold" Content="Connect" Command="{Binding Connect}" Visibility="{Binding IsDisconnected, Converter={StaticResource visibilityConverter}}"/>
-            <Button Grid.Column="2" FontSize="25pt" FontWeight="Bold" Content="Disconnect" Command="{Binding Disconnect}" Visibility="{Binding IsConnected, Converter={StaticResource visibilityConverter}}"/>
+            <TextBlock VerticalAlignment="Center" FontSize="25pt" FontWeight="Bold" Grid.Column="0">Name:</TextBlock>
+            <TextBox VerticalAlignment="Center" Grid.Column="1" Text="{Binding UserName, Mode=TwoWay}" Height="35px"></TextBox>
+            <Button VerticalAlignment="Center" Grid.Column="2" FontSize="25pt" FontWeight="Bold" Content="Connect" Command="{Binding Connect}" Visibility="{Binding IsDisconnected, Converter={StaticResource visibilityConverter}}"/>
+            <Button VerticalAlignment="Center" Grid.Column="2" FontSize="25pt" FontWeight="Bold" Content="Disconnect" Command="{Binding Disconnect}" Visibility="{Binding IsConnected, Converter={StaticResource visibilityConverter}}"/>
         </Grid>
         <ScrollViewer x:Name="Messages" Grid.Row="1" Grid.Column="0" Visibility="{Binding IsConnected, Converter={StaticResource visibilityConverter}}">
             <ItemsControl Width="{Binding ElementName=Messages, Path=ActualWidth}" ItemsSource="{Binding Messages}">
@@ -45,15 +45,15 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
-        <Grid Grid.Row="2" Grid.Column="0" Visibility="{Binding IsConnected, Converter={StaticResource visibilityConverter}}">
+        <Grid Grid.Row="2" Grid.Column="0" ColumnSpacing="10" Visibility="{Binding IsConnected, Converter={StaticResource visibilityConverter}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="110"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="75"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock FontSize="25" FontWeight="Bold" Grid.Column="0">Message:</TextBlock>
-            <TextBox Text="{Binding Message, Mode=TwoWay}" Grid.Column="1"/>
-            <Button Content="Send" FontSize="25" FontWeight="Bold" Command="{Binding SendMessage}" CommandParameter="{Binding Message}" Grid.Column="2"/>
+            <TextBlock VerticalAlignment="Center" FontSize="25" FontWeight="Bold" Grid.Column="0">Message:</TextBlock>
+            <TextBox VerticalAlignment="Center" Height="35px" Text="{Binding Message, Mode=TwoWay}" Grid.Column="1"/>
+            <Button VerticalAlignment="Center" Content="Send" FontSize="25" FontWeight="Bold" Command="{Binding SendMessage}" CommandParameter="{Binding Message}" Grid.Column="2"/>
         </Grid>
     </Grid>
 </Page>

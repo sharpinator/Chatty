@@ -35,7 +35,7 @@ namespace Sharpinator.Chatty.ViewModels
             }
         }
         public bool IsDisconnected { get { return !IsConnected; } }
-        private string userName = Guid.NewGuid().ToString();
+        private string userName = "My Name";
         public string UserName
         {
             get { return userName; }
@@ -55,6 +55,7 @@ namespace Sharpinator.Chatty.ViewModels
         }
         protected HubConnection Connection { get; private set; }
         protected IDispatcher Dispatcher { get; private set; }
+        protected IDisposable MessageReceived { get; private set; }
         public MainPageViewModel(IHubConnectionBuilder builder, IDispatcher dispatcher)
         {
             SendMessage = new DelegateCommand<string>(DoSendMessage);
@@ -71,7 +72,7 @@ namespace Sharpinator.Chatty.ViewModels
         }
         private async void DoConnect()
         {
-            Connection.On<string, string>("messageReceived", AddMessage);
+            MessageReceived = Connection.On<string, string>("messageReceived", AddMessage);
             await Connection.StartAsync();
             IsConnected = true;
             
@@ -79,6 +80,8 @@ namespace Sharpinator.Chatty.ViewModels
         private async void DoDisconnect()
         {
             IsConnected = false;
+            MessageReceived.Dispose();
+            MessageReceived = null;
             await Connection.StopAsync();
         }
         private async void AddMessage(string username, string message)
