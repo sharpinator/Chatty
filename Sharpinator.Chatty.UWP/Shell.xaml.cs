@@ -28,7 +28,8 @@ namespace Sharpinator.Chatty.UWP
         }
         public void SetContentFrame(Frame frame)
         {
-            rootSplitView.Content = frame;
+            root.Children.Clear();
+            root.Children.Add(frame);
         }
     }
 }

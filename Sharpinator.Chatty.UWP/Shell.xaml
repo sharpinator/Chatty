@@ -11,6 +11,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ContentControl x:Name="rootSplitView" Grid.Column="0" Grid.Row="0"></ContentControl>
+        <StackPanel x:Name="root">
+
+        </StackPanel>
     </Grid>
 </Page>
