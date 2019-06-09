@@ -4,17 +4,11 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Practices.Unity;
 using Prism.Mvvm;
 using Prism.Unity.Windows;
-
-using Prism.Windows.AppModel;
-using Prism.Windows.Mvvm;
 using Sharpinator.Chatty.ViewModels;
 using Windows.ApplicationModel.Activation;
-using System.Reflection;
-using Windows.ApplicationModel.Resources;
-
 using Windows.UI.Xaml;
-
 using Windows.UI.Xaml.Controls;
+using Sharpinator.Chatty.UWP.Services;
 
 namespace Sharpinator.Chatty.UWP
 {
@@ -60,6 +54,7 @@ namespace Sharpinator.Chatty.UWP
             
             Container.RegisterInstance<IHubConnectionBuilder>(new HubConnectionBuilder().WithUrl("http://localhost:63113/ChatHub"));
             Container.RegisterInstance<IDispatcher>(new CoreDispatcherProxy());
+            Container.RegisterInstance<IAlertMessageService>(new AlertMessageService());
             base.ConfigureContainer();
         }
         protected override void ConfigureViewModelLocator()
