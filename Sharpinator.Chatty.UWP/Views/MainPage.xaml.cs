@@ -26,5 +26,15 @@ namespace Sharpinator.Chatty.UWP.Views
         {
             this.InitializeComponent();
         }
+
+        private void KeyboardAccelerator_Invoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+
+        }
+
+        private void Messages_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            Messages.ChangeView(null, Messages.ScrollableHeight, null);
+        }
     }
 }

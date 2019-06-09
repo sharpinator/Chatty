@@ -3,16 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d">
-    <Grid>
+      mc:Ignorable="d" x:Name="pageShell">
+    <Grid x:Name="root">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" MinWidth="400"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" MinHeight="300"/>
         </Grid.RowDefinitions>
-        <StackPanel x:Name="root">
-
-        </StackPanel>
     </Grid>
 </Page>

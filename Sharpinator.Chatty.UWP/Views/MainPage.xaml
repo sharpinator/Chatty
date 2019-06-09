@@ -9,6 +9,8 @@
     xmlns:prismMvvm="using:Prism.Windows.Mvvm"
     prismMvvm:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d"
+    xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Grid>
         <Grid.Resources>
@@ -34,7 +36,8 @@
             <Button VerticalAlignment="Center" Grid.Column="2" FontSize="25pt" FontWeight="Bold" Content="Disconnect" Command="{Binding Disconnect}" Visibility="{Binding IsConnected, Converter={StaticResource visibilityConverter}}"/>
         </Grid>
         <ScrollViewer x:Name="Messages" Grid.Row="1" Grid.Column="0" Visibility="{Binding IsConnected, Converter={StaticResource visibilityConverter}}">
-            <ItemsControl Width="{Binding ElementName=Messages, Path=ActualWidth}" ItemsSource="{Binding Messages}">
+            
+            <ItemsControl SizeChanged="Messages_SizeChanged" Width="{Binding ElementName=Messages, Path=ActualWidth}" ItemsSource="{Binding Messages}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -52,8 +55,19 @@
                 <ColumnDefinition Width="75"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock VerticalAlignment="Center" FontSize="25" FontWeight="Bold" Grid.Column="0">Message:</TextBlock>
-            <TextBox VerticalAlignment="Center" Height="35px" Text="{Binding Message, Mode=TwoWay}" Grid.Column="1"/>
+            <TextBox VerticalAlignment="Center" Height="35px" Text="{Binding Message, Mode=TwoWay}" Grid.Column="1">
+                <TextBox.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="Enter" Modifiers="None" Invoked="KeyboardAccelerator_Invoked">
+                        <i:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Invoked">
+                                <core:InvokeCommandAction Command="{Binding SendMessage}" CommandParameter="{Binding Message}"></core:InvokeCommandAction>
+                            </core:EventTriggerBehavior>
+                        </i:Interaction.Behaviors>
+                    </KeyboardAccelerator>
+                </TextBox.KeyboardAccelerators>
+            </TextBox>
             <Button VerticalAlignment="Center" Content="Send" FontSize="25" FontWeight="Bold" Command="{Binding SendMessage}" CommandParameter="{Binding Message}" Grid.Column="2"/>
+            
         </Grid>
     </Grid>
 </Page>
