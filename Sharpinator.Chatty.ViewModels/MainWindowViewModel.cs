@@ -30,9 +30,11 @@ namespace Sharpinator.Chatty.ViewModels
             get { return isConnected; }
             private set
             {
-                SetProperty(ref isConnected, value);
+                if(SetProperty(ref isConnected, value))
+                    RaisePropertyChanged(nameof(IsDisconnected));
             }
         }
+        public bool IsDisconnected { get { return !IsConnected; } }
         private string userName = Guid.NewGuid().ToString();
         public string UserName
         {
